@@ -23,5 +23,15 @@
         <div class="vacante-descripcion">
             {{{vacante.descripcion}}}
         </div>
+
+        <a href="/vacante/editar/{{vacante.url}}" class="btn btn-azul editar-btn">Editar Vacante</a>
     </main>
+    <aside class="sidebar">
+        <h2>Conocimientos desados</h2>
+        <ul class="skills">
+            {{#each vacante.skills}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </aside>
 </div>

@@ -18,7 +18,7 @@ exports.agregarVacante = async(req, res) => {
     const nuevaVacante = await vacante.save();
 
     //redireccionar
-    res.redirect(`/vacantes/${nuevaVacante.url}`);
+    res.redirect(`/vacante/${nuevaVacante.url}`);
 }
 
 exports.mostrarVacante = async(req, res, next) => {
@@ -31,4 +31,15 @@ exports.mostrarVacante = async(req, res, next) => {
         nombrePagina: vacante.titulo,
         barra: true
     });
+}
+
+exports.editarVacante = async(req, res, next) => {
+    const vacante = await Vacante.findOne({ url: req.params.url })
+
+    if (!vacante) return next();
+
+    res.render('editar-vacante', {
+        vacante,
+        nombrePagina: `Editar - ${vacante.titulo}`
+    })
 }

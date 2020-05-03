@@ -203,6 +203,7 @@ h3 {
 .candidato,
 .vacante:last-of-type {
     border: none;
+    width: 90%;
 }
 
 .caja {
@@ -504,6 +505,10 @@ p.candidatos {
 
 .botones a {
     margin-right: 2rem;
+}
+
+.lista-vacantes {
+    width: 100%;
 }
 
 .lista-candidatos p,

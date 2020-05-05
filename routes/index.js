@@ -30,7 +30,8 @@ module.exports = () => {
     router.get('/iniciar-sesion', usuariosController.formIniciarSesion);
     router.post('/iniciar-sesion', authController.autenticarusuario);
 
-
+    // administracion
+    router.get('/administracion', authController.mostrarPanel);
 
     return router;
 }

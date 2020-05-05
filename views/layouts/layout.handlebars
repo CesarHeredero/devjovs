@@ -32,9 +32,17 @@
             <a href="/vacantes/nueva" class="btn btn-azul">Publicar Nueva Vacante</a>
         {{/if}}
     </header>
-    <div class="nombre-sitio contenedor">
+    <div class="contenido-principal contenedor">
+        {{#if mensajes}}
+            <div class="alertas">
+                {{#mostrarAlertas mensajes}}
+                {{/mostrarAlertas}}
+            </div>
+        {{/if}}
         {{{body}}}
     </div>
+
+    
 
     <script src="/js/trix.js"></script>
     <script src="/dist/bundle.js"></script>

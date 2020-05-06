@@ -55,3 +55,54 @@ exports.formIniciarSesion = (req, res) => {
         nombrePagina: 'Iniciar sesion',
     });
 }
+
+exports.formEditarPerfil = (req, res) => {
+    res.render('editar-perfil', {
+        nombrePagina: 'Edita tu perfil de DebJobs',
+        cerrarSesion: true,
+        nombre: req.user.nombre,
+        usuario: req.user
+    });
+}
+
+exports.editarPerfil = async(req, res, next) => {
+    const usuario = await Usuarios.findById(req.user._id);
+
+    usuario.nombre = req.body.nombre;
+    usuario.email = req.body.email;
+    if (req.body.password) {
+        usuario.password = req.body.password;
+    }
+
+    await usuario.save();
+
+    req.flash('correcto', 'Cambios guardados correctamente');
+
+    res.redirect('/administracion');
+
+}
+
+exports.validarPerfil = (req, res, next) => {
+    req.sanitizeBody('nombre').escape();
+    req.sanitizeBody('email').escape();
+    if (req.body) {
+        req.sanitizeBody('password').escape();
+    }
+
+    req.checkBody('nombre', 'Nombre es obligatorio').notEmpty();
+    req.checkBody('email', 'email es obligatorio').notEmpty();
+
+    const errores = req.validationErrors();
+    if (errores) {
+        req.flash('error', errores.map(error => error.msg));
+
+        res.render('editar-perfil', {
+            nombrePagina: 'Editar Perfil',
+            usuario: req.user,
+            cerrarSesion: true,
+            nombre: req.user.nombre,
+            mensajes: req.flash()
+        });
+    }
+    next();
+}

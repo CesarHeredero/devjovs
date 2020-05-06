@@ -14,7 +14,6 @@ passport.use(new LocalStrategy({
     });
 
     const verificarPass = usuario.comporbarPass(password);
-    console.log(verificarPass.password);
     if (!verificarPass) return done(null, false, {
         message: 'La contraseña no existe'
     });

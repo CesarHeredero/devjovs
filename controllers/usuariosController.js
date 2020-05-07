@@ -46,7 +46,6 @@ const configuracionMulter = {
             cb(new Error('Formato no valido'), false);
         }
     }
-
 }
 
 const upload = multer(configuracionMulter).single('imagen');
@@ -110,6 +109,7 @@ exports.formEditarPerfil = (req, res) => {
         nombrePagina: 'Edita tu perfil de DebJobs',
         cerrarSesion: true,
         nombre: req.user.nombre,
+        imagen: req.user.imagen,
         usuario: req.user
     });
 }
@@ -153,6 +153,7 @@ exports.validarPerfil = (req, res, next) => {
             usuario: req.user,
             cerrarSesion: true,
             nombre: req.user.nombre,
+            imagen: req.user.imagen,
             mensajes: req.flash()
         });
     }

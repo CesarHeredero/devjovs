@@ -116,7 +116,6 @@ exports.eliminarVacante = async(req, res) => {
         // no permitido
         res.status(403).send('Error');
     }
-    console.log(vacante);
 
 
 }
@@ -133,7 +132,6 @@ const verificarAutor = (vacante = {}, usuario = {}) => {
 exports.subirCV = (req, res, next) => {
     upload(req, res, function(error) {
         if (error) {
-            console.log(error);
             if (error instanceof multer.MulterError) {
                 if (error.code === 'LIMIT_FILE_SIZE') {
                     req.flash('error', 'el archvio es muy grande, máximo 5mb');
@@ -213,4 +211,20 @@ exports.mostrarCandidatos = async(req, res, next) => {
         imagen: req.user.imagen,
         candidatos: vacante.candidatos
     })
+}
+
+exports.buscarVacantes = async(req, res, next) => {
+    const vacantes = await Vacante.find({
+        $text: {
+            $search: req.body.q
+        }
+    });
+
+    res.render('home', {
+        nombrePagina: `Resultados para: ${req.body.q}`,
+        barra: true,
+        vacantes
+
+    })
+    console.log(vacantes);
 }

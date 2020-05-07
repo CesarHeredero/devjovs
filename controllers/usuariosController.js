@@ -7,7 +7,6 @@ const shortid = require('shortid');
 exports.subirImagen = (req, res, next) => {
     upload(req, res, function(error) {
         if (error) {
-            console.log(error);
             if (error instanceof multer.MulterError) {
                 if (error.code === 'LIMIT_FILE_SIZE') {
                     req.flash('error', 'el archvio es muy grande, máximo 5mb');

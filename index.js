@@ -76,4 +76,11 @@ app.use((error, req, res) => {
     res.render('error');
 })
 
-app.listen(process.env.PUERTO);
+//app.listen(process.env.PUERTO);
+
+const host = '0.0.0.0';
+const port = process.env.PUERTO;
+
+app.listen(port, host, () => {
+    console.log('El servidor esta funcionando');
+});
